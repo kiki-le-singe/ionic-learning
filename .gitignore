@@ -1,6 +1,7 @@
 # Specifies intentionally untracked files to ignore when using Git
 # http://git-scm.com/docs/gitignore
 
+app/jspm_packages/
 app/styles/css/
 app/lib/
 node_modules/
