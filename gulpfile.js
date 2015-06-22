@@ -8,22 +8,22 @@ var rename = require('gulp-rename');
 var sh = require('shelljs');
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  sass: ['./app/styles/scss/**/*.scss']
 };
 
 gulp.task('default', ['sass']);
 
 gulp.task('sass', function(done) {
-  gulp.src('./scss/app.scss')
+  gulp.src('./app/styles/scss/app.scss')
     .pipe(sass({
       errLogToConsole: true
     }))
-    .pipe(gulp.dest('./app/css/'))
+    .pipe(gulp.dest('./app/styles/css/'))
     .pipe(minifyCss({
       keepSpecialComments: 0
     }))
     .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./app/css/'))
+    .pipe(gulp.dest('./app/styles/css/'))
     .on('end', done);
 });
 
