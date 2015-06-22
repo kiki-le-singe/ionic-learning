@@ -8,7 +8,7 @@
   "documentRoot": "app",
   "createDocumentRoot": "app",
   "watchPatterns": [
-    "www/**/*",
-    "!www/lib/**/*"
+    "app/**/*",
+    "!app/lib/**/*"
   ]
 }
