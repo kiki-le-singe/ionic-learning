@@ -8,7 +8,8 @@ var rename = require('gulp-rename');
 var sh = require('shelljs');
 
 var paths = {
-  sass: ['./app/styles/scss/**/*.scss']
+  sass: ['./app/styles/scss/**/*.scss'],
+  js: ['./app/js/**/*.js']
 };
 
 gulp.task('default', ['sass']);
@@ -29,6 +30,7 @@ gulp.task('sass', function(done) {
 
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.js, ['scripts']);
 });
 
 gulp.task('install', ['git-check'], function() {
@@ -49,4 +51,10 @@ gulp.task('git-check', function(done) {
     process.exit(1);
   }
   done();
+});
+
+gulp.task('scripts', function() {
+  return gulp.src(paths.js)
+    .pipe(concat('app.dev.js'))
+    .pipe(gulp.dest('./app/js/'));
 });

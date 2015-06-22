@@ -2,6 +2,7 @@
   "name": "ionic-learning",
   "app_id": "",
   "gulpStartupTasks": [
+    "scripts",
     "sass",
     "watch"
   ],
