@@ -30,7 +30,7 @@ gulp.task('sass', function(done) {
 
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
-  gulp.watch(paths.js, ['scripts']);
+  gulp.watch(paths.js, ['scripts:dev']);
 });
 
 gulp.task('install', ['git-check'], function() {
@@ -53,7 +53,7 @@ gulp.task('git-check', function(done) {
   done();
 });
 
-gulp.task('scripts', function() {
+gulp.task('scripts:dev', function() {
   return gulp.src(paths.js)
     .pipe(concat('app.dev.js'))
     .pipe(gulp.dest('./app/js/'));
