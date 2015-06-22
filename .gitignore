@@ -4,6 +4,7 @@
 app/jspm_packages/
 app/styles/css/
 app/lib/
+app/js/app.dev.js
 node_modules/
 platforms/
 plugins/
