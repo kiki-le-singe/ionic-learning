@@ -5,6 +5,8 @@
     "sass",
     "watch"
   ],
+  "documentRoot": "app",
+  "createDocumentRoot": "app",
   "watchPatterns": [
     "www/**/*",
     "!www/lib/**/*"
