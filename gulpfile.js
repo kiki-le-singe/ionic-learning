@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var bower = require('bower');
@@ -6,10 +8,13 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var babelify = require('babelify');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
 
 var paths = {
   sass: ['./app/styles/scss/**/*.scss'],
-  js: ['./app/js/**/*.js']
+  js: ['./app/js/**/*.js', '!./app/js/app.dev.js']
 };
 
 gulp.task('default', ['sass']);
@@ -53,8 +58,13 @@ gulp.task('git-check', function(done) {
   done();
 });
 
-gulp.task('scripts:dev', function() {
-  return gulp.src(paths.js)
-    .pipe(concat('app.dev.js'))
-    .pipe(gulp.dest('./app/js/'));
+gulp.task('scripts:dev', function () {
+  browserify({
+    entries: './app/js/app.js',
+    debug: true
+  })
+  .transform(babelify)
+  .bundle()
+  .pipe(source('app.dev.js'))
+  .pipe(gulp.dest('./app/js'));
 });
