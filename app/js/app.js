@@ -1,3 +1,7 @@
+import {AppController} from './controllers/appController';
+import {PlaylistsController} from './controllers/playlistsController';
+import {PlaylistController} from './controllers/playlistController';
+
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
@@ -6,10 +10,11 @@
 // 'starter.controllers' is found in controllers.js
 
 // angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives'])
-angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'])
+angular.module('starter', ['ionic', 'ngCordova'])
+// angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'])
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
+.run(($ionicPlatform) => {
+  $ionicPlatform.ready(() => {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -25,81 +30,84 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
+    .state('app', {
+      url: '/app',
+      abstract: true,
+      templateUrl: 'templates/menu.html',
+      controller: 'AppCtrl as App'
+    })
 
-  .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
-  })
-
-  .state('app.search', {
-    url: '/search',
-    views: {
-      menuContent: {
-        templateUrl: 'templates/search.html'
+    .state('app.search', {
+      url: '/search',
+      views: {
+        menuContent: {
+          templateUrl: 'templates/search.html'
+        }
       }
-    }
-  })
+    })
 
-  .state('app.browse', {
-    url: '/browse',
-    views: {
-      menuContent: {
-        templateUrl: 'templates/browse.html'
+    .state('app.browse', {
+      url: '/browse',
+      views: {
+        menuContent: {
+          templateUrl: 'templates/browse.html'
+        }
       }
-    }
-  })
+    })
+
     .state('app.playlists', {
       url: '/playlists',
       views: {
         menuContent: {
           templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+          controller: 'PlaylistsCtrl as Playlists'
         }
       }
     })
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      menuContent: {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+    .state('app.single', {
+      url: '/playlists/:playlistId',
+      views: {
+        menuContent: {
+          templateUrl: 'templates/playlist.html',
+          controller: 'PlaylistCtrl as Playlist'
+        }
       }
-    }
-  })
-
-  .state('app.device', {
-    url: '/device',
-    views: {
-      menuContent: {
-        templateUrl: 'templates/device-information.html',
-        controller: 'DeviceInformationCtrl'
-      }
-    }
-  })
-
-  .state('app.battery', {
-    url: '/battery',
-    views: {
-      menuContent: {
-        templateUrl: 'templates/battery.html',
-        controller: 'BatteryCtrl'
-      }
-    }
-  })
-
-  .state('app.camera', {
-    url: '/camera',
-    views: {
-      menuContent: {
-        templateUrl: 'templates/camera.html',
-        controller: 'CameraCtrl'
-      }
-    }
-  });
+    });
+  // .state('app.device', {
+  //   url: '/device',
+  //   views: {
+  //     menuContent: {
+  //       templateUrl: 'templates/device-information.html',
+  //       controller: 'DeviceInformationCtrl'
+  //     }
+  //   }
+  // })
+  //
+  // .state('app.battery', {
+  //   url: '/battery',
+  //   views: {
+  //     menuContent: {
+  //       templateUrl: 'templates/battery.html',
+  //       controller: 'BatteryCtrl'
+  //     }
+  //   }
+  // })
+  //
+  // .state('app.camera', {
+  //   url: '/camera',
+  //   views: {
+  //     menuContent: {
+  //       templateUrl: 'templates/camera.html',
+  //       controller: 'CameraCtrl'
+  //     }
+  //   }
+  // });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/playlists');
-});
+})
+
+.controller('AppCtrl', AppController)
+.controller('PlaylistCtrl', PlaylistController)
+.controller('PlaylistsCtrl', PlaylistsController);
